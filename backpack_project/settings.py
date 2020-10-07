@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'docs.apps.DocsConfig', #new
     'users.apps.UsersConfig', #new
     'homepage.apps.HomepageConfig', #new
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -99,10 +100,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    }
 ]
-
-
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -121,3 +122,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
