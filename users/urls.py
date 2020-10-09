@@ -1,9 +1,10 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import SignUpView
+from django.contrib.auth import login
+from .views import SignUpView, Login_auth
 
 urlpatterns = [
-    path('login',  auth_views.LoginView.as_view(), name='login'),
+    path('login', Login_auth, name='login_auth'),
     path('signup', SignUpView.as_view(), name='signup'),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
 ]
