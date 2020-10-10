@@ -1,18 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Articles{% endblock title %}
 
-{% block content %}
-    {% for folders in object_list %}
-        <div class="card">
-            <div class="card-header">
-                <span class="font-weight-bold">{{ folders.title }}</span> &middot;
-            </div>
 
-            </div>
-            <div class="card-footer text-center text-muted">
-                <a href="'article_edit' article.pk'">Edit</a> | <a href=" url 'article_delete' article.pk ">Delete</a>
-            </div>
-        </div>
-        <br>
-    {% endfor %}
+{% block content %}
+<div class="container">    
+  <div class="row">
+{% for folder in object_list %}
+{% if forloop.counter|divisibleby:3 %}
+		</div>
+		</div><br>
+	<div class="container">
+  <div class="row">
+{% endif %}
+    <div class="col-sm-4">
+        <div class="panel-body"><img src="{% static 'folder_pic.jpg' %}" class="img-responsive" style="width:100%" alt="Image"></div>
+        <h3 class="text-center my-3">{{folder.title}}</h3>
+    </div>
+{% endfor %}
+
+  </div>
+</div><br>
 {% endblock content %}
+
+

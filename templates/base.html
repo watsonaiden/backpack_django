@@ -18,18 +18,21 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      </ul>
+    </div>
       <a class="navbar-brand" href="{% url 'home' %}">Backpack</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
       data-target="#navbarCollapse" aria-controls="navbarCollapse"
       aria-expanded="false" aria-label="Toggle navigation">
-
-      </ul>
-    </div>
     </button>
       {% if user.is_authenticated %}
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="">+ New</a></li>
-          <li class="nav-item">
+	<ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+        <a class="nav-link" href="{% url 'folders' %}">Folders <span class="sr-only">(current)</span></a>
+      </li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+       
             <a class="nav-link dropdown-toggle" href="#" id="userMenu"
               data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
