@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from .models import Folder
+from .models import Folder, Document
 from django.db.models import Q
 
 
@@ -18,3 +18,6 @@ class FolderListView(ListView):
         else:
             return 0
 
+class DocView(ListView):
+    model = Document
+    template_name = "Doc.html"

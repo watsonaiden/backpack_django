@@ -6,9 +6,12 @@ from django.urls import reverse
 
 class Folder(models.Model):
     class Meta:
-        unique_together =('title', 'user_owner')
-    title = models.CharField(max_length=100, primary_key=True)
-    description = models.CharField(max_length=512)
+        constraints = [
+            models.UniqueConstraint(fields=['title', 'user_owner'], name='unique_folder')
+            ]
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=512, blank=True)
     user_owner = models.ForeignKey(
                         get_user_model(),
                         on_delete=models.CASCADE,
@@ -17,14 +20,17 @@ class Folder(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('folder_detail', args=[str(self.title)])   
+        return reverse('folder_detail', args=[str(self.id)])   
 
 
 class Document(models.Model):
     class Meta:
-        unique_together = ('id', 'folder_parent')
+        constraints = [
+            models.UniqueConstraint(fields=['title', 'folder_parent'], name='unique_doc')
+            ]
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    body = models.TextField()
+    body = models.TextField(blank=True)
     folder_parent = models.ForeignKey(
         Folder,
         on_delete=models.CASCADE,

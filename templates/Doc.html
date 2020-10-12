@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Articles{% endblock title %}
+{% block title %}Docs{% endblock title %}
 
 
 {% block content %}
 <div class="container">    
   <div class="row">
-{% for folder in object_list %}
+{% for Docs in object_list %}
 {% if forloop.counter|divisibleby:4 %}
 		</div>
 		</div><br>
@@ -15,9 +15,9 @@
 {% endif %}
    
     <div class="col-sm-4">
- <a href="{% url "doc_list" folder.pk %}">
+ <a href="">
         <div class="panel-body"><img src="{% static 'folder_pic.jpg' %}" class="img-responsive" style="width:100%" alt="Image"></div>
-        <h3 class="text-center my-3">{{folder.title}}</h3>
+        <h3 class="text-center my-3">{{Docs.title}}</h3>
 </a>
     </div>
 
@@ -26,5 +26,3 @@
   </div>
 </div><br>
 {% endblock content %}
-
-
