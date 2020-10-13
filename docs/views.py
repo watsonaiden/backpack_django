@@ -19,10 +19,10 @@ class FolderListView(ListView):
 
 class DocView(ListView):
     model = Document
-    template_name = "Doc.html"
+    template_name = "doc_list.html"
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['title'])
+            folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
             qs = folder.document_set.all()
             return qs
         else:
@@ -33,3 +33,11 @@ class DocView(ListView):
 class DocDetailView(DetailView):
     model = Document
     template_name = "doc_detail.html"
+
+    def get_object(self): #using get_object instead of queryset since only one object returned
+        if self.request.user.is_authenticated:
+            folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
+            qs = Document.objects.get(folder_parent=folder, title=self.kwargs['pk'])
+            return qs
+        else:
+            return 0
