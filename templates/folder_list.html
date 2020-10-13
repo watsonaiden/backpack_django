@@ -15,7 +15,7 @@
 {% endif %}
    
     <div class="col-sm-4">
- <a href="{% url "doc_list" folder.pk %}">
+ <a href="{% url "doc_list" folder.title %}">
         <div class="panel-body"><img src="{% static 'folder_pic.jpg' %}" class="img-responsive" style="width:100%" alt="Image"></div>
         <h3 class="text-center my-3">{{folder.title}}</h3>
 </a>
