@@ -35,8 +35,8 @@ def Login_auth(request):
             return JsonResponse(data)
         
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(username=username, password=password)
 
         if user is not None: #Verify form's content existence
@@ -46,7 +46,4 @@ def Login_auth(request):
             
     return render(request, 'home.html', {'state':1})
 
-def ajax_test(request):
-    if request.is_ajax():
-        return HttpResponse("hello")
     
