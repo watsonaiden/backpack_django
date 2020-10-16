@@ -1,11 +1,12 @@
 from .forms import SignUpForm
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import generic
 from django.template import RequestContext
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
+from django.http import HttpResponse
 
 
 class SignUpView(generic.CreateView):
@@ -20,6 +21,19 @@ class SignUpView(generic.CreateView):
 
 
 def Login_auth(request):
+    if request.method == 'POST' and request.is_ajax():
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        data ={}
+        if user is not None:
+            login(request, user)
+            data['success'] = 1
+            return JsonResponse(data)
+        else:
+            data['success'] = 0    
+            return JsonResponse(data)
+        
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -32,3 +46,7 @@ def Login_auth(request):
             
     return render(request, 'home.html', {'state':1})
 
+def ajax_test(request):
+    if request.is_ajax():
+        return HttpResponse("hello")
+    
