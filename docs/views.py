@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView,UpdateView
 from .models import Folder, Document
 from django.db.models import Q
+from django.http import JsonResponse
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -27,14 +29,13 @@ class DocView(ListView):
             return qs
         else:
             return 0
-        
+    
 
 
 class DocDetailView(UpdateView):
     model = Document
+    fields = ('title','body')
     template_name = "doc_detail.html"
-    fields = ['title', 'body']
-    
     def get_object(self): #using get_object instead of queryset since only one object returned
         if self.request.user.is_authenticated:
             folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
@@ -42,3 +43,10 @@ class DocDetailView(UpdateView):
             return qs
         else:
             return 0
+
+
+
+
+def ajax_form_save(request):
+    return HttpResponse("Here's the text of the Web page.")
+    

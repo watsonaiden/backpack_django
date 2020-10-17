@@ -33,17 +33,5 @@ def Login_auth(request):
         else:
             data['success'] = 0    
             return JsonResponse(data)
-        
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user is not None: #Verify form's content existence
-            if user.is_active: #Verify validity
-                login(request, user)
-                return redirect('home') #It's ok, so go to index
-            
-    return render(request, 'home.html', {'state':1})
 
     

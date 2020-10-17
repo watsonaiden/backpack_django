@@ -15,7 +15,7 @@
 {% endif %}
    
     <div class="col-sm-4">
- <a href="{{request.path}}/{{Docs.title}}">
+ <a href="{{request.path}}{{Docs.title}}">
         <div class="panel-body"><img src="{% static 'file.png' %}" class="img-responsive" style="width:100%" alt="Image"></div>
         <h3 class="text-center my-3">{{Docs.title}}</h3>
 </a>

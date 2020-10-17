@@ -1,8 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post">
+<form id='doc-data'>
 {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update">
+<div class="d-flex justify-content-center">
+    <input type="text" name="title" value="{{ object.title }}" maxlength="100" required="" id="id_title">
+</div>
+<div class="form-group">
+    <textarea class="form-control" id="id_body" rows="3" style=" height: 400px">{{object.body}}</textarea>
+ </div>
 </form>
 {% endblock content %}
+{% block javascript %}
+
+<script type="text/javascript">
+	 $("#id_body").change(function (){
+	$.ajax(
+    {
+	data: {'hello': 'hello'},
+	success: function(){
+		alert("saved correctly");
+	},
+	
+	});
+	 
+});
+</script>
+{% endblock javascript %}

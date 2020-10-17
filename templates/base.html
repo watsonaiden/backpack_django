@@ -51,16 +51,9 @@
       {% else %}
       <ul class="navbar-nav ml-auto">
 	<a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
-        {% if state == 1 %}
-	<li class="dropdown show">
-        <a class="btn btn-primary ml-2" href="#" data-toggle="dropdown">Login <strong class="caret"></strong></a>
-	<div class="dropdown-menu dropdown-menu-right show", style="padding: 15px;">
-	<p>Login wrong</p>
-	{% else %} 
-	 <li class="dropdown">
+	<li class="dropdown">
         <a class="btn btn-primary ml-2" href="#" data-toggle="dropdown">Login <strong class="caret"></strong></a>
 	<div class="dropdown-menu dropdown-menu-right", style="padding: 15px;">
-	{% endif %}
             <form action='{% url 'login_auth' %}' id="auth-form" method="POST">
             {% csrf_token %}
 	    {{ login_form }}
@@ -78,7 +71,7 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
   crossorigin="anonymous"></script>
@@ -119,5 +112,7 @@
 	});
 
 </script>
+{% block javascript %}
+{% endblock javascript %}
   </body>
 </html>
