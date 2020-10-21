@@ -13,16 +13,24 @@
 {% block javascript %}
 
 <script type="text/javascript">
-	 $("#id_body").change(function (){
-	$.ajax(
-    {
-	data: {'hello': 'hello'},
-	success: function(){
-		alert("saved correctly");
-	},
-	
-	});
-	 
+var typingTimer;                //timer identifier
+var doneTypingInterval = 5000;  //time in ms (5 seconds)
+
+//on keyup, start the countdown
+$('#id_body').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#id_body').val()) {
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    }
 });
+
+//user is "finished typing," do something
+function doneTyping () {
+	var csrfmiddlewaretoken = '{{ csrf_token }}';
+        var body = document.getElementById('id_body').value;
+	var title = document.getElementById('id_title').value;
+	var pk = '{{ object.pk }}';
+	alert(pk);
+}
 </script>
 {% endblock javascript %}

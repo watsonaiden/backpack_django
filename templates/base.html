@@ -83,7 +83,6 @@
 	e.stopPropagation();
 	e.preventDefault();
 	var csrfmiddlewaretoken = '{{ csrf_token }}';
-	var formData = $(e).serialize();
         $.ajax(
     {
 
