@@ -47,6 +47,12 @@ class DocDetailView(UpdateView):
 
 
 
-def ajax_form_save(request):
-    return HttpResponse("Here's the text of the Web page.")
-    
+def ajax_autosave(request):
+    if request.method == 'POST' and request.is_ajax():
+        title = request.POST.get('title')
+        body = request.POST.get('body')
+        my_pk = request.POST.get('pk')
+        saving_doc = Document.objects.filter(pk=my_pk)
+        saving_doc.update(title = title, body = body)
+        return JsonResponse({"success":1})
+

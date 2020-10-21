@@ -30,7 +30,26 @@ function doneTyping () {
         var body = document.getElementById('id_body').value;
 	var title = document.getElementById('id_title').value;
 	var pk = '{{ object.pk }}';
-	alert(pk);
+	        $.ajax(
+    {
+
+        type:"POST",
+        url: "{% url 'ajax_autosave' %}",
+        data : {
+            "csrfmiddlewaretoken" : csrfmiddlewaretoken,
+            "title": title,
+	    "body": body,
+	    "pk": pk,
+        },
+
+        success: function( data ) 		
+        {
+            
+	    if (data.success == 1){
+		alert("saved")
+		}
+	}	
+     })
 }
 </script>
 {% endblock javascript %}
