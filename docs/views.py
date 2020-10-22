@@ -56,3 +56,6 @@ def ajax_autosave(request):
         saving_doc.update(title = title, body = body)
         return JsonResponse({"success":1})
 
+def createFolder_view(request):
+    return render(request,'create_folder.html')
+
