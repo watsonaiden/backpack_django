@@ -19,16 +19,16 @@
     <div class="loginPopup">
       <div class="formPopup" id="popupForm">
         <form action="/action_page.php" class="formContainer">
-          <h2>Please Log in</h2>
-          <label for="email">
-            <strong>E-mail</strong>
+          <h2>Create New Folder</h2>
+          <label for="title">
+            <strong>Title</strong>
           </label>
-          <input type="text" id="email" placeholder="Your Email" name="email" required>
-          <label for="psw">
-            <strong>Password</strong>
+          <input type="text" id="title_id" placeholder="Title" name="title" required>
+          <label for="desc">
+            <strong>Description</strong>
           </label>
-          <input type="password" id="psw" placeholder="Your Password" name="psw" required>
-          <button type="submit" class="btn">Log in</button>
+          <input id="desc" placeholder="description" name="desc">
+          <button type="submit" class="btn">Create</button>
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
       </div>

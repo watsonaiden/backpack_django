@@ -4,6 +4,7 @@ from .models import Folder, Document
 from django.db.models import Q
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.db import IntegrityError
 
 
 # Create your views here.
@@ -56,6 +57,19 @@ def ajax_autosave(request):
         saving_doc.update(title = title, body = body)
         return JsonResponse({"success":1})
 
-def createFolder_view(request):
-    return render(request,'create_folder.html')
-
+def ajax_createfolder(request):
+    if request.method == 'POST' and request.is_ajax():
+        title = request.POST.get('title')
+        description = request.POST.get('desc')
+        try:
+            Folder.objects.create(title = title,
+                                description=description,
+                                user_owner = request.user)
+            return JsonResponse({"success":1})
+        
+        except IntegrityError as e:
+            raise ViewException(format, str(e), 404)
+    return JsonResponse({"failure":1})
+            
+            
+        
