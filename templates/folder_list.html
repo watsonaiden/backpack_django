@@ -5,15 +5,17 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'forms.css' %}">
+
+
 <div class="container"> 
-  <div class='btn-toolbar float-right'>
-    <div class='btn-group'>
+  <div class="row">
       <button class='openButton' onclick = "openForm()"> 
         New folder
           </button> 
-    </div>
-  </div>
-<div class="container">    
+  </div>   
+</div>
+<br>
+<div class="container">
   <div class="row">
 {% for folder in object_list %}
 {% if forloop.counter|divisibleby:4 %}
