@@ -70,6 +70,22 @@ def ajax_createfolder(request):
         except IntegrityError as e:
             raise ViewException(format, str(e), 404)
     return JsonResponse({"failure":1})
-            
+
+def ajax_createdocument(request):
+    if request.method == 'POST' and request.is_ajax():
+        title = request.POST.get('title')
+        folder_title = request.POST.get('folder_title')
+        folder = Folder.objects.get(user_owner=request.user,
+                                    title=folder_title)
+        try:
+            document = Document.objects.create(
+                                title = title,
+                                folder_parent= folder)
+            return JsonResponse({"pk": document.pk })
+        
+        except IntegrityError as e:
+            raise ViewException(format, str(e), 404)
+    return JsonResponse({"failure":1})
+                      
             
         

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Docs{% endblock title %}
+{% block title %}Documents{% endblock title %}
 
 
 {% block content %}
@@ -67,11 +67,11 @@ $('#form_create_id').submit(function(e){
     {
 
         type:"POST",
-        url: "{% url 'create_folder' %}",
+        url: "{% url 'create_document' %}",
         data : {
             "csrfmiddlewaretoken" : csrfmiddlewaretoken,
             "title": document.getElementById("title_id").value,
-	    "desc": document.getElementById("desc_id").value,
+	    "folder_title": "{{ view.kwargs.folder_title}}",
         },
 
         success: function( data ) 		
