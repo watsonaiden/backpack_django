@@ -4,6 +4,16 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+
+<div class="container"> 
+  <div class="row">
+      <button class='openButton' onclick = "openForm()"> 
+        New Document
+          </button> 
+  </div>   
+</div>
+<br>
 <div class="container">    
   <div class="row">
 {% for Docs in object_list %}
@@ -25,4 +35,60 @@
 
   </div>
 </div><br>
+    <div class="loginPopup">
+      <div class="formPopup" id="popupForm">
+        <form action="" id="form_create_id" class="formContainer">
+          <h2>New Document</h2>
+          <label for="title">
+            <strong>Title</strong>
+          </label>
+          <input type="text" id="title_id" placeholder="Title" name="title" required>
+          <button type="submit" class="btn">Create</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+    </div>
+
 {% endblock content %}
+{% block javascript %}
+    <script>
+      function openForm() {
+        document.getElementById("popupForm").style.display = "block";
+      }
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+    </script>
+<script type="text/javascript">
+$('#form_create_id').submit(function(e){
+	e.preventDefault();	
+	var csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax(
+    {
+
+        type:"POST",
+        url: "{% url 'create_folder' %}",
+        data : {
+            "csrfmiddlewaretoken" : csrfmiddlewaretoken,
+            "title": document.getElementById("title_id").value,
+	    "desc": document.getElementById("desc_id").value,
+        },
+
+        success: function( data ) 		
+        {
+            
+	    if (data.success == 1){
+		location.reload();
+		}
+	    else{
+		alert(data.failure);
+		}
+        }
+	
+     })
+	return false;
+
+	});
+</script>
+{% endblock javascript %}
+
