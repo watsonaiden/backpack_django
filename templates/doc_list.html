@@ -78,7 +78,7 @@ $('#form_create_id').submit(function(e){
         {
             
 	    if (data.success == 1){
-		location.reload();
+		window.location.href = window.location.href + data.title;
 		}
 	    else{
 		alert(data.failure);

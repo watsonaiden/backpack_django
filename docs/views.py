@@ -81,11 +81,12 @@ def ajax_createdocument(request):
             document = Document.objects.create(
                                 title = title,
                                 folder_parent= folder)
-            return JsonResponse({"pk": document.pk })
+            return JsonResponse({"success":1,
+                                 "title": document.title })
         
         except IntegrityError as e:
             raise ViewException(format, str(e), 404)
-    return JsonResponse({"failure":1})
+    return JsonResponse({"sucess":0})
                       
             
         
