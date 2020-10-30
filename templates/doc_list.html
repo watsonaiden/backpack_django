@@ -35,7 +35,8 @@
     <div class="dropdown-menu dropdown-menu-right"
               aria-labelledby="userMenu">
               <a class="dropdown-item"
-              <!--href="'delete_doc'">Delete Document</a>
+              <a href="{% url 'delete_doc' Docs.pk %}">Delete Document</a>
+		</a>
             </div>
 </a>
 </h3>

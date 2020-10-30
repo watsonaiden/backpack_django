@@ -88,10 +88,16 @@ def ajax_createdocument(request):
             raise ViewException(format, str(e), 404)
     return JsonResponse({"sucess":0})
                       
-def delete_folder(request,pk): #insecure!!!
+def delete_folder(request,pk): 
     folder = Folder.objects.get(pk=pk)
     if folder.user_owner != request.user:
         return HttpResponse("you do not have permission to delete this folder")
     folder.delete()
-    return redirect('folders')
-        
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def delete_document(request,pk): 
+    Doc = Document.objects.get(pk=pk)
+    if Doc.folder_parent.user_owner != request.user:
+        return HttpResponse("you do not have permission to delete this folder")
+    Doc.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
