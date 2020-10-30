@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView,UpdateView
 from .models import Folder, Document
 from django.db.models import Q
@@ -82,11 +82,16 @@ def ajax_createdocument(request):
                                 title = title,
                                 folder_parent= folder)
             return JsonResponse({"success":1,
-                                 "title": document.title })
+                                "title": document.title })
         
         except IntegrityError as e:
             raise ViewException(format, str(e), 404)
     return JsonResponse({"sucess":0})
                       
-            
+def delete_folder(request,pk): #insecure!!!
+    folder = Folder.objects.get(pk=pk)
+    if folder.user_owner != request.user:
+        return HttpResponse("you do not have permission to delete this folder")
+    folder.delete()
+    return redirect('folders')
         

@@ -4,12 +4,14 @@ from .views import (FolderListView,
                     DocDetailView,
                     ajax_autosave,
                     ajax_createfolder,
-                    ajax_createdocument)
+                    ajax_createdocument,
+                    delete_folder)
 
 urlpatterns = [
     path('ajax/save/', ajax_autosave, name='ajax_autosave'),
     path('ajax/create/folder', ajax_createfolder, name='create_folder'),
     path('ajax/create/document', ajax_createdocument, name='create_document'),
+    path('ajax/delete/<int:pk>' ,delete_folder, name='delete_folder'),
     path('', FolderListView.as_view(), name='folders'),
     path('<str:folder_title>/', DocView.as_view(), name ='doc_list'),
     path('<str:folder_title>/<str:pk>/', DocDetailView.as_view(), name='doc_detail'),
