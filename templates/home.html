@@ -7,9 +7,7 @@
     <h1 class="display-4">Backpack App</h1>
     <p class="lead">A packpack webiste built with Django.</p>
     <p class="lead">
-        {% current_time "%Y-%m-%d %I:%M %p" as the_time %}
-	<p>The time is {{ the_time }}.</p>
-
+        {%  get_top3_folders %}
     </p>
 </div>
 
