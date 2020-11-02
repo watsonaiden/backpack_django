@@ -130,3 +130,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR.joinpath('templates/static')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+USE_TZ = True # for timezome.now() function to stop naive timezone error
+

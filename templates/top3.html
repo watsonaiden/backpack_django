@@ -1,5 +1,10 @@
-<ul>
+<div class="dropdown-menu dropdown-menu-right"
+     aria-labelledby="folder_menu">
 {% for choice in folder_queryset %}
-    <li> {{ choice }} </li>
+{% if not forloop.first %}
+	   <div class="dropdown-divider"></div>
+{% endif %}
+     <a class="dropdown-item"
+      <a href="{% url 'doc_list' choice %}">{{choice}}</a>
 {% endfor %}
-</ul>
+  </div>

@@ -13,6 +13,14 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
+<style>
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
+    .dropdown-menu{
+        margin-top: 0;
+    }
+</style>
     <title>{% block title %}Backpack App{% endblock title %}</title>
   </head>
   <body>
@@ -26,15 +34,21 @@
       aria-expanded="false" aria-label="Toggle navigation">
     </button>
       {% if user.is_authenticated %}
+ 	<div class="dropdown">
 	<ul class="navbar-nav mr-auto">
+
                   <li class="nav-item active">
-        <a class="nav-link" href="{% url 'folders' %}">Folders <span class="sr-only">(current)</span></a>
-      </li>
+ 
+        <a class="nav-link dropdown-toggle" href="{% url 'folders' %}"
+	>
+	Folders </a>
+	</li>
+	{% get_top3_folders %}
+</div>
 	</ul>
-	<ul class="navbar-nav ml-auto">
-       
+	<ul class="navbar-nav ml-auto"> 
             <a class="nav-link dropdown-toggle" href="#" id="userMenu"
-              data-toggle="dropdown" aria-haspopup="true"
+              data-toggle="dropdown" data-hover = "dropdown" aria-haspopup="true"
               aria-expanded="false">
               {{ user.username }}
             </a>
