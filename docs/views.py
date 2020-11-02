@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.db import IntegrityError
 
+import datetime
+
 
 # Create your views here.
 
@@ -26,6 +28,8 @@ class DocView(ListView):
     def get_queryset(self):
         if self.request.user.is_authenticated:
             folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
+            folder.last_access = datetime.datetime.now()
+            folder.save()
             qs = folder.document_set.all()
             return qs
         else:
@@ -41,6 +45,8 @@ class DocDetailView(UpdateView):
         if self.request.user.is_authenticated:
             folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
             qs = Document.objects.get(folder_parent=folder, title=self.kwargs['pk'])
+            qs.last_acess =  datetime.datetime.now()
+            qs.save()
             return qs
         else:
             return 0

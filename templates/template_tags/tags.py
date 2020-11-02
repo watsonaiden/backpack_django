@@ -15,7 +15,7 @@ def current_time(format_string):
 def get_top3_folders(context):
     request = context['request']
     user = request.user
-    queryset = Folder.objects.filter(user_owner = user).order_by('last_access')[:5]
+    queryset = Folder.objects.filter(user_owner = user).order_by('-last_access')[:3]
         
     return {"folder_queryset":queryset}
     

@@ -7,7 +7,9 @@
     <h1 class="display-4">Backpack App</h1>
     <p class="lead">A packpack webiste built with Django.</p>
     <p class="lead">
+	{% if user.is_authenticated %}
         {%  get_top3_folders %}
+	{% endif %}
     </p>
 </div>
 
