@@ -30,7 +30,7 @@ class DocView(ListView):
             folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
             folder.last_access = timezone.now()
             folder.save()
-            qs = folder.document_set.all()
+            qs = folder.document_set.all().order_by('-last_access')
             return qs
         else:
             return 0
@@ -45,7 +45,7 @@ class DocDetailView(UpdateView):
         if self.request.user.is_authenticated:
             folder = Folder.objects.get(user_owner=self.request.user, title=self.kwargs['folder_title'])
             qs = Document.objects.get(folder_parent=folder, title=self.kwargs['pk'])
-            qs.last_acess =  timezone.now()
+            qs.last_access =  timezone.now()
             qs.save()
             return qs
         else:
