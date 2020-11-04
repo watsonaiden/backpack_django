@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
-from datetime import datetime
 # Create your models here.
 
 class Folder(models.Model):
@@ -13,7 +12,7 @@ class Folder(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=512, blank=True)
-    last_access = models.DateTimeField(default=datetime.now)
+    last_access = models.DateTimeField(default=timezone.now)
     user_owner = models.ForeignKey(
                         get_user_model(),
                         on_delete=models.CASCADE,
@@ -33,7 +32,7 @@ class Document(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     body = models.TextField(blank=True)
-    last_access = models.DateTimeField(default=datetime.now)
+    last_access = models.DateTimeField(default=timezone.now)
     
     folder_parent = models.ForeignKey(
         Folder,

@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.template import RequestContext
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import views as auth_views
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
@@ -34,4 +35,8 @@ def Login_auth(request):
             data['success'] = 0    
             return JsonResponse(data)
 
+    
+class ChangePassView(auth_views.PasswordChangeView):
+    success_url = reverse_lazy('home')
+    template_name = 'changepass.html'
     
