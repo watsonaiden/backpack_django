@@ -24,10 +24,9 @@
     <title>{% block title %}Backpack App{% endblock title %}</title>
   </head>
   <body>
-
+<div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       </ul>
-    </div>
       <a class="navbar-brand" href="{% url 'home' %}">Backpack</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
       data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -75,6 +74,7 @@
 
     </div>
   </nav>
+</div>
     {% block content %}
     {% endblock content %}
 
