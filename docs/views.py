@@ -12,7 +12,6 @@ from django.utils import timezone
 # Create your views here.
 
 class FolderListView(ListView):
-    model = Folder
     template_name = 'folder_list.html'
 
     def get_queryset(self):
@@ -23,7 +22,6 @@ class FolderListView(ListView):
             return 0
 
 class DocView(ListView):
-    model = Document
     template_name = "doc_list.html"
     def get_queryset(self):
         if self.request.user.is_authenticated:

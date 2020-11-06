@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Reminder{% endblock title %}
+
+{% block content %}
+
+{% for reminder in object_list %}
+	<p> {{ reminder }} </p>
+	<p> due in {{ reminder.days_to_complete }} days</p>
+
+
+{% endfor %}
+
+
+{% endblock content %}

@@ -18,7 +18,6 @@ class test_reminderCreate(TestCase):
         due_date = date + datetime.timedelta(days=5) + datetime.timedelta(hours=1)
         
         reminder = Reminder.objects.create(title="test", deadline = due_date, user_owner = User.objects.get(username='testuser'))
-        print(reminder.days_to_complete())
         self.assertEqual(reminder.days_to_complete(), 5)
         
         
