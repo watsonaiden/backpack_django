@@ -285,6 +285,9 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     justify-content: space-between;
     align-items: center;
   }
+.fc .fc-toolbar-chunk {
+    text-align: center;
+}
 .fc .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1.5em;
   }

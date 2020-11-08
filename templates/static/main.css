@@ -241,6 +241,9 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   /* icons within buttons */
 
 }
+.fc .fc-toolbar-chunk {
+  text-align:center;
+}
 .fc .fc-button .fc-icon {
     vertical-align: middle;
     font-size: 1.5em; /* bump up the size (but don't make it bigger than line-height of button, which is 1.5em also) */
@@ -280,6 +283,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
 .fc .fc-toolbar {
     display: flex;
     justify-content: space-between;
