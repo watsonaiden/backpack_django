@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 from .models import Reminder
 from django.db.models import Q
 from django.db import IntegrityError
@@ -27,11 +27,15 @@ def ajax_createReminder(request):
             reminder = Reminder.objects.create(title=title, description=description,
                                     deadline=deadline, user_owner=request.user)
             return JsonResponse({"success":1,
-                                 "pk": reminder.pk})
+                                 "url": reminder.get_view_url()})
         except IntegrityError:
             return JsonResponse({"success":0})
     return JsonResponse({"success":0})
-            
+
+
+class Reminder_detail(DetailView):
+    template_name = 'reminder_detail.html'
+    model = Reminder
 
         
         

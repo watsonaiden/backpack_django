@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 # Create your models here.
 
 
@@ -20,5 +21,7 @@ class Reminder(models.Model):
         time_left = self.deadline - timezone.now()
         
         return time_left.days
+    def get_view_url(self):
+        return reverse('reminder_detail', args=[self.pk])
 
 
