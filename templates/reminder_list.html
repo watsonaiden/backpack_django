@@ -5,60 +5,7 @@
 {% block content %}
 <meta charset='utf-8' />
 <link href='{% static 'main.css' %}' rel='stylesheet' />
-<script src='{% static 'main.js' %}'></script>
-<script>
-
-window.onclick = function(event) {
-
-	var modal = document.getElementById("myModal");
-  if (event.target == modal) {
-
-    modal.style.display = "none";
-  }
-}
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      height: '100%',
-      expandRows: true,
-      slotMinTime: '08:00',
-      slotMaxTime: '20:00',
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title,myEventButton',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      },
-      initialView: 'dayGridMonth',
-	{% now "Y-m-d" as today_str %}
-      initialDate: '{{ today_str }}',
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      nowIndicator: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-	{% for event in object_list %}
-	{
-	  title: '{{event.title}}',
-	  start: '{{event.deadline|date:'c'}}'
-	},
-	{% endfor %} 
-      ],
-    customButtons: {
-      myEventButton: {
-        text: "hello",
-        click: function() {
-		var modal = document.getElementById("myModal");
-		modal.style.display="block";
-        }
-      }
-    }
-    });
-
-    calendar.render();
-  });
-
-</script>
+<link rel="stylesheet" href="{% static 'forms.css' %}">
 <style>
 
   html, body {
@@ -115,10 +62,113 @@ window.onclick = function(event) {
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+  <div class="modal-content" style="max-width:300px;">
+    <form action="" id="form_create_id" class="formContainer" >
+          <h2>New Document</h2>
+          <label for="title">
+            <strong>Title</strong>
+          </label>
+          <input type="text" id="title_id" placeholder="Title" name="title" required>
+<label for="time">
+            <strong>Time</strong>
+          </label>
+          <input type="datetime-local" id="time_id" placeholder="Time" name="Time"
+		min="{% now "Y-m-d" %}T00:00" required>
+          <label for="desc">
+            <strong>Description</strong>
+          </label>
+          <input type="text" id="desc_id" placeholder="Desc" name="Desc">
+          <button type="submit" class="btn">Add</button>
+        </form>
   </div>
 
 </div>
 {% endblock content %}
+{% block javascript %}
+<script src='{% static 'main.js' %}'></script>
+<script>
+
+window.onclick = function(event) {
+
+var modal = document.getElementById("myModal");
+  if (event.target == modal) {
+
+    modal.style.display = "none";
+  }
+}
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      height: '100%',
+      expandRows: true,
+      slotMinTime: '08:00',
+      slotMaxTime: '20:00',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title,myEventButton',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      initialView: 'dayGridMonth',
+	{% now "Y-m-d" as today_str %}
+      initialDate: '{{ today_str }}',
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      nowIndicator: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: [
+	{% for event in object_list %}
+	{
+	  title: '{{event.title}}',
+	  start: '{{event.deadline|date:'c'}}'
+	},
+	{% endfor %} 
+      ],
+    customButtons: {
+      myEventButton: {
+        text: "Add Reminder",
+        click: function() {
+		var modal = document.getElementById("myModal");
+		modal.style.display="block";
+        }
+      }
+    }
+    });
+
+    calendar.render();
+  });
+
+
+$('#form_create_id').submit(function(e){
+	e.preventDefault();	
+	var csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax(
+    {
+
+        type:"POST",
+        url: "{% url 'create_reminder' %}",
+        data : {
+            "csrfmiddlewaretoken" : csrfmiddlewaretoken,
+            "title": document.getElementById("title_id").value,
+	    "deadline": document.getElementById("time_id").value,
+	    "desc": document.getElementById("desc_id").value,
+        },
+	success: function( data ) 		
+        {
+            
+	    if (data.success == 1){
+		alert(data.pk)
+		}
+	    else{
+		alert(data.failure);
+		}
+        }
+	
+     })
+	return false;
+	
+
+	});
+</script>
+{% endblock javascript %}
