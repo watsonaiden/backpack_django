@@ -1,27 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+
+.documentdiv { 
+    border: solid 1px black;
+    height: 600px
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    overflow: hidden;
+    
+}
+.title {
+    border-width: 0px;
+    font-size: 25px;
+    text-align: center;
+}
+</style>
+
+
 <form id='doc-data'>
 {% csrf_token %}
 <div class="d-flex justify-content-center">
-    <input type="text" name="title" value="{{ object.title }}" maxlength="100" required="" id="id_title">
+    <input class="title" onchange="doneTyping()" type="text" name="title" value="{{ object.title }}" maxlength="100" required="" id="id_title">
 </div>
 <div class="form-group">
-    <textarea class="form-control" id="id_body" rows="3" style=" height: 400px">{{object.body}}</textarea>
+    <textarea class="form-control documentdiv" id="id_body" rows="3">{{object.body}}</textarea>
  </div>
 </form>
+
+
 {% endblock content %}
 {% block javascript %}
 
 <script type="text/javascript">
+document.onload =resize();
+
+function resize() {
+  var textarea = document.getElementById("id_body");
+  textarea.style.height = "";
+  textarea.style.height = Math.max(textarea.scrollHeight, 600) + "px";
+};
 var typingTimer;                //timer identifier
-var doneTypingInterval = 5000;  //time in ms (5 seconds)
+var doneTypingInterval = 3000;  //time in ms (3 seconds)
+
+
+
 
 //on keyup, start the countdown
-$('#id_body').keyup(function(){
+document.getElementById("id_body").addEventListener("keydown", function(){
+    resize();
     clearTimeout(typingTimer);
-    if ($('#id_body').val()) {
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    }
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
 });
 
 //user is "finished typing," do something
