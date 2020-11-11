@@ -1,9 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+.remindernote { 
+    border: solid 1px black;
+    height: 350px !important;
+    width: 80%;
+    margin-left: 10%;
+    overflow: hidden;
+    
+}
+</style>
 <div class="post-entry">
-	<h2>{{ reminder.title }}</h2>
-	<p>{{ reminder.deadline }}</p>
+   <div class="col-md-12 text-right">
+	<a href="{% url 'delete_reminder' reminder.pk %}" class="btn btn-danger btn-lg active text-right" role="button" aria-pressed="true">Delete Reminder</a>
+ </div>
+	<h2 style="text-align: center;">{{ reminder.title }}</h2>
+	<h2 style="text-align: center;">Time: {{ reminder.deadline }}</h2>
+	<div class="form-group">
+    <textarea maxlength= 512 class="form-control remindernote" id="id_notes" rows="3">{{reminder.description}}</textarea>
+ </div>
+
 </div>
 
 {% endblock content %}
+{% block javascript %}
+<script type="text/javascript">
+var typingTimer;                //timer identifier
+var doneTypingInterval = 2000;  //time in ms (3 seconds)
+
+document.getElementById("id_notes").addEventListener("keydown", function(){
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+function doneTyping () {
+	var csrfmiddlewaretoken = '{{ csrf_token }}';
+        var body = document.getElementById('id_notes').value;
+	var pk = '{{ reminder.pk }}';
+	        $.ajax(
+    {
+
+        type:"POST",
+        url: "{% url 'ajax_autosave' %}",
+        data : {
+            "csrfmiddlewaretoken" : csrfmiddlewaretoken,
+	    "desc": body,
+	    "pk": pk,
+        },
+
+        success: function( data ) 		
+        {
+            
+	    if (data.success == 1){
+		alert("saved")
+		}
+	}	
+     })
+}
+</script>
+{% endblock javascript %}
+
+
+

@@ -121,7 +121,8 @@ var modal = document.getElementById("myModal");
 	{% for event in object_list %}
 	{
 	  title: '{{event.title}}',
-	  start: '{{event.deadline|date:'c'}}'
+	  start: '{{event.deadline|date:'c'}}',
+	  url: '{% url 'reminder_detail' event.pk %}',
 	},
 	{% endfor %} 
       ],
@@ -159,11 +160,11 @@ $('#form_create_id').submit(function(e){
         },
 	success: function( data ) 		
         {
-            alert(data.url)
 	    if (data.success == 1){
 		calendar.addEvent({
               		title: title,
               		start: deadline,
+			url: data.url
             	});
 		var modal = document.getElementById("myModal");
 		modal.style.display="none";

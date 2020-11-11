@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView,DetailView
 from .models import Reminder
 from django.db.models import Q
@@ -36,7 +36,31 @@ def ajax_createReminder(request):
 class Reminder_detail(DetailView):
     template_name = 'reminder_detail.html'
     model = Reminder
+    
+def delete_reminder(request, pk):
+    reminder = Reminder.objects.get(pk=pk)
+    if reminder.user_owner != request.user:
+        return HttpResponse("Don't have permission to delete this reminder")
+    else:
+        reminder.delete()
+    return redirect("reminders")
 
+def ajax_autosave(request):
+    if request.method == 'POST' and request.is_ajax():
+        pk = request.POST.get('pk')
+        description = request.post.get('desc')
+        user = request.user
+        try:
+            saving_reminder = Reminder.objects.get(pk=pk, user_owner=user)
+            saving_doc.update(description=description)
+            return JsonResponse({"success":1})
+        except IntegrityError:
+            return JsonResponse({"success": 0})
+
+
+    
+        
+    
         
         
 
