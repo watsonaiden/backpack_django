@@ -1,0 +1,5 @@
+
+{% for reminder, time in reminders_queryset %}
+      <p>{{reminder.title}} Deadline in: {{time.0}} Days, {{time.1}} Hours</p>
+
+{% endfor %}

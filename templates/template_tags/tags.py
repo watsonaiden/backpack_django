@@ -1,4 +1,5 @@
 from docs.models import Folder
+from reminders.models import Reminder
 from django import template
 from datetime import datetime
 
@@ -18,4 +19,16 @@ def get_top3_folders(context):
     queryset = Folder.objects.filter(user_owner = user).order_by('-last_access')[:3]
         
     return {"folder_queryset":queryset}
+
+
+@register.inclusion_tag("reminders_upcoming.html", takes_context=True)
+def get_upcoming_reminders(context):
+    request = context['request']
+    user = request.user
+    queryset = Reminder.objects.filter(user_owner = user, deadline__gte=datetime.now()).order_by('deadline')[:5]
+    days_til = []
+    for items in queryset:
+       days_til.append(items.days_to_complete())
+    queryset = zip(queryset, days_til)
+    return {"reminders_queryset": queryset}
     

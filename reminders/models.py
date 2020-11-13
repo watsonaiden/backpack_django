@@ -18,9 +18,11 @@ class Reminder(models.Model):
         return self.title
 
     def days_to_complete(self):
-        time_left = self.deadline - timezone.now()
+        td = self.deadline - timezone.now()
         
-        return time_left.days
+        return td.days, td.seconds//3600
+
+    
     def get_view_url(self):
         return reverse('reminder_detail', args=[self.pk])
 
