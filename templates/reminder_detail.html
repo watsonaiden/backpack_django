@@ -37,11 +37,12 @@ function doneTyping () {
 	var csrfmiddlewaretoken = '{{ csrf_token }}';
         var body = document.getElementById('id_notes').value;
 	var pk = '{{ reminder.pk }}';
+	alert(body);
 	        $.ajax(
     {
 
         type:"POST",
-        url: "{% url 'ajax_autosave' %}",
+        url: "{% url 'save_notes' %}",
         data : {
             "csrfmiddlewaretoken" : csrfmiddlewaretoken,
 	    "desc": body,

@@ -1,5 +1,12 @@
-
+<div style='width:50%;'class="list-group">
 {% for reminder, time in reminders_queryset %}
-      <p>{{reminder.title}} Deadline in: {{time.0}} Days, {{time.1}} Hours</p>
-
+<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{reminder.title}}</h5>
+      <small>Deadline in: {{time.0}} Days, {{time.1}} Hours</small>
+    </div>
+    <p class="mb-1">{{ reminder.description|slice:"64" }}</p>
+	<small>Deadline: {{reminder.deadline}}</small>
+  </a>
 {% endfor %}
+</div>

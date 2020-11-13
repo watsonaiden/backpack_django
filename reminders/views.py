@@ -48,11 +48,12 @@ def delete_reminder(request, pk):
 def ajax_autosave(request):
     if request.method == 'POST' and request.is_ajax():
         pk = request.POST.get('pk')
-        description = request.post.get('desc')
+        description = request.POST.get('desc')
         user = request.user
         try:
             saving_reminder = Reminder.objects.get(pk=pk, user_owner=user)
-            saving_doc.update(description=description)
+            saving_reminder.description=description
+            saving_reminder.save()
             return JsonResponse({"success":1})
         except IntegrityError:
             return JsonResponse({"success": 0})
