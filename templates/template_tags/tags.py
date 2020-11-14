@@ -1,4 +1,4 @@
-from docs.models import Folder
+from docs.models import Folder, Document
 from reminders.models import Reminder
 from django import template
 from datetime import datetime
@@ -32,3 +32,13 @@ def get_upcoming_reminders(context):
     queryset = zip(queryset, days_til)
     return {"reminders_queryset": queryset}
     
+@register.inclusion_tag("recent_docs.html", takes_context=True)
+def get_recent_docs(context):
+    request = context['request']
+    user = request.user
+    queryset = Document.objects.filter(folder_parent__user_owner=user).order_by('-last_access')[:5]
+    return {"doc_queryset":queryset}
+
+@register.simple_tag
+def get_url_self(obj):
+    return obj.get_absolute_url()

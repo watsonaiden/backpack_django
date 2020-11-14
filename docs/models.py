@@ -44,5 +44,5 @@ class Document(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('doc_detail', args=[str(self.id)])                       
+        return reverse('doc_detail', args=[str(self.folder_parent.title),str(self.title)])                       
 

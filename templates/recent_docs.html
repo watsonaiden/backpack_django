@@ -1,0 +1,14 @@
+<div style='width:50%; float:left;' class="list-group">
+<div class="list-group-item flex-column align-items-start">
+<h2 class="mb-1">Recent Docs</h2>
+</div>
+{% for docs in doc_queryset %}
+<a href="{% get_url_self docs %}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{docs.title}}</h5>
+      <small>Last accessed: {{docs.last_access}}</small>
+    </div>
+    <p class="mb-1">{{ docs.body|slice:"64" }}</p>
+  </a>
+{% endfor %}
+</div>

@@ -23,7 +23,7 @@ class Reminder(models.Model):
         return td.days, td.seconds//3600
 
     
-    def get_view_url(self):
-        return reverse('reminder_detail', args=[self.pk])
+    def get_absolute_url(self):
+        return reverse('reminder_detail', args=[str(self.pk)])
 
 

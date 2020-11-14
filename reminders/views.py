@@ -27,7 +27,7 @@ def ajax_createReminder(request):
             reminder = Reminder.objects.create(title=title, description=description,
                                     deadline=deadline, user_owner=request.user)
             return JsonResponse({"success":1,
-                                 "url": reminder.get_view_url()})
+                                 "url": reminder.get_absolute_url()})
         except IntegrityError:
             return JsonResponse({"success":0})
     return JsonResponse({"success":0})

@@ -1,6 +1,9 @@
-<div style='width:50%;'class="list-group">
+<div style='width:50%; float:left;' class="list-group">
+<div class="list-group-item flex-column align-items-start">
+<h2 class="mb-1">Upcoming Events</h2>
+</div>
 {% for reminder, time in reminders_queryset %}
-<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+<a href="{% get_url_self reminder %}" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{reminder.title}}</h5>
       <small>Deadline in: {{time.0}} Days, {{time.1}} Hours</small>

@@ -5,14 +5,17 @@
 {% block content %}
 <div class="jumbotron">
     <h1 class="display-4">Backpack App</h1>
-    <p class="lead">A packpack webiste built with Django.</p>
+    <p class="lead">A school organization app built in Django</p>
     <p class="lead">
 
     </p>
 
 </div>
 {% if user.is_authenticated %}
+<div style="padding-left: 2%; padding-right: 2%;">
 {% get_upcoming_reminders %}
+{% get_recent_docs %}
+</div>
 {% endif %}
 
 
